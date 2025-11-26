@@ -16,9 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # 拉取完整历史
+          fetch-depth: 0
 
-      - name: 拉取远程最新代码（提前拉取，避免后续冲突）
+      - name: 拉取远程最新代码（此时本地无变更，可正常拉取）
         run: git pull origin master --rebase
 
       - name: Set up Python
@@ -44,7 +44,7 @@ jobs:
           fi
           echo "✅ 配置文件检查通过"
 
-      - name: Run crawler（生成新文件）
+      - name: Run crawler（生成新文件，此时本地基于最新代码）
         env:
           FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
